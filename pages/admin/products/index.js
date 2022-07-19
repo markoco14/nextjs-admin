@@ -2,6 +2,10 @@ import { useState, useEffect } from "react"
 import { createServer } from "miragejs";
 import Link from "next/link";
 import products from "../../../fixtures/products";
+import { Card, Image } from 'antd';
+// import Image from "next/image";
+
+const { Meta } = Card;
 
 createServer({
     fixtures: {
@@ -45,12 +49,23 @@ export default function ProductsHome() {
             </Link>
             <h1>Welcome to the products page</h1>
             <div>
-                {products?.map((product) => (
-                    <article key={product.id} style={{width: "25%"}}>
-                        <p style={{maxWidth: "35ch", fontWeight: 600 }}>{product.title}</p>
-                        <img src={product.image} width="100%" style={{objectFit: "cover"}}></img>
-                    </article>
-                ))}
+                <Card>
+                    {products?.map((product) => (
+                        <Card 
+                            key={product.id} 
+                            style={{ width: 240 }}
+                            cover={
+                                <Image 
+                                    alt="A product image" 
+                                    src={product.image} 
+                                    style={{ maxWidth: "100%"}}
+                                />
+                            }
+                        >                        
+                            <Meta title={product.title} description={product.description} />
+                        </Card>
+                    ))}
+                </Card>
             </div>
             {/* <ul>
                 {products?.map((product) => (
