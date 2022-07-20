@@ -35,7 +35,7 @@ export default function StatsHome() {
             <main>
                 <section className="section bg-white">
                     <div className="container">
-                        <h1>Welcome to the stats page</h1>
+                        <h1>Product Monthly Sales Stats</h1>
                     </div>
                 </section>
             </main>

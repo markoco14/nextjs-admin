@@ -2,10 +2,8 @@ import { useState, useEffect } from "react"
 import { createServer } from "miragejs";
 import Link from "next/link";
 import products from "../../../fixtures/products";
-import { Card } from 'antd';
+import defaultProductPic from '../../../public/images/default-product-image.jpg'
 import Image from "next/image";
-
-const { Meta } = Card;
 
 createServer({
     fixtures: {
@@ -18,11 +16,13 @@ createServer({
         })
 
         this.passthrough();
+
+        // server.shutdown();
     }
 })
 
 export default function ProductsHome() {
-    let [products, setProducts] = useState([])
+    const [products, setProducts] = useState([]);
 
     useEffect(() => {
         fetch("/api/products")
@@ -30,7 +30,7 @@ export default function ProductsHome() {
             res.json())
         .then((json) => {
             setProducts(json)
-        })
+        });
     }, [])
 
     return (
@@ -67,36 +67,29 @@ export default function ProductsHome() {
         <main>
             <section className="section bg-white">
                 <div className="container">
-                    <h1>Welcome to the products page</h1>
+                    <h1>Products Page Customer View</h1>
                     <div className="grid product-grid">
-                            {products?.map((product) => (
-                                <article key={product.id}>
-                                    <p>{product.title}</p>
-                                    <p>{product.description}</p>
-                                    {/* <Image 
-                                        src={product.image}
-                                        alt="An image of clothing"
-                                        layout="fill"
-                                        className="product-card-image"
-                                    /> */}
-                                    <img 
-                                        src={product.image}
-                                        alt="An image of clothing"
-                                        className="product-card-image"
-                                    ></img>
-                                </article>
-                            ))}
+                        {products?.map((product) => (
+                            <article key={product.id}>
+                                <p>{product.title}</p>
+                                <p>{product.description}</p>
+                                {/* <Image 
+                                    src={product.image}
+                                    alt="An image of clothing"
+                                    layout="fill"
+                                    className="product-card-image"
+                                /> */}
+                                <img 
+                                    src={product.image? product.image : defaultProductPic.src}
+                                    alt="An image of clothing"
+                                    className="product-card-image"
+                                ></img>
+                            </article>
+                        ))}
                     </div>
                 </div>
             </section>
         </main>
-            {/* <ul>
-                {products?.map((product) => (
-                    <li key={product.id}>
-                    {product.title} ({product.price})
-                    </li>
-                ))}
-            </ul> */}
         </>
     );
 }
