@@ -4,38 +4,45 @@ export default function Layout({ children }) {
     return (
         <>
             <header>
-                <div className="container flex navbar">
+                <div className="header-container flex navbar">
                     <span className="logo">Logo</span>
+                    <Link href={`/`}>
+                        <a>Log Out</a>
+                    </Link>
+                </div>
+            </header>
+            <main>
+                <div className="grid admin-grid">
                     <nav>
-                        <ul role="list" className="flex navigation-list">
-                            <li>
+                        <ul role="list" className="flex-column admin-navigation primary-admin-navigation">
+                            <li className="nav-list-item">
                                 <Link href={`/admin`}>
-                                    <a>Admin</a>
+                                    <a>Home</a>
                                 </Link>
                             </li>
-                            <li>
-                                <Link href={`/admin/products`}>
-                                    <a>Products</a>
-                                </Link>
-                            </li>
-                            <li>
+                            <p className="nav-list-item">Products</p>
+                            <ul role="product-page-list" className="flex-column admin-navigation secondary-admin-navigation">
+                                <li className="nav-list-item">
+                                    <Link href={`/admin/products`}>
+                                        <a>View</a>
+                                    </Link>
+                                </li>
+                                <li className="nav-list-item">
+                                    <Link href={`/admin/products/manage`}>
+                                        <a>Manage</a>
+                                    </Link>
+                                </li>
+                            </ul>
+                            <li className="nav-list-item">
                                 <Link href={`/admin/stats`}>
                                     <a>Stats</a>
                                 </Link>
                             </li>
-                            <li>
-                                <Link href={`/`}>
-                                    <a>Log Out</a>
-                                </Link>
-                            </li>
                         </ul>
                     </nav>
+                    {children}
                 </div>
-            </header>
-            <main>
-                {children}
             </main>
-            
         </>
     );
 }
