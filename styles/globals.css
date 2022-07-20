@@ -51,7 +51,7 @@ a {
 }
 
 .container {
-  width: min(100%, 800px);
+  width: min(100%, 1000px);
   padding: 0 1em;
   margin: auto;
 }
