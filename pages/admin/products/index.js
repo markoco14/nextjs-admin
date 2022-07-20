@@ -4,6 +4,7 @@ import Link from "next/link";
 import products from "../../../fixtures/products";
 import defaultProductPic from '../../../public/images/default-product-image.jpg'
 import Image from "next/image";
+import Layout from "../../../components/adminLayout";
 
 createServer({
     fixtures: {
@@ -34,37 +35,7 @@ export default function ProductsHome() {
     }, [])
 
     return (
-        <>
-        <header>
-            <div className="container flex navbar">
-                <span className="logo">Logo</span>
-                <nav>
-                    <ul role="list" className="flex navigation-list">
-                        <li>
-                            <Link href={`/admin`}>
-                                <a>Admin</a>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href={`/admin/products`}>
-                                <a>Products</a>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href={`/admin/stats`}>
-                                <a>Stats</a>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href={`/`}>
-                                <a>Log Out</a>
-                            </Link>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
-        <main>
+        <Layout>
             <section className="section bg-white">
                 <div className="container">
                     <h1>Products Page Customer View</h1>
@@ -89,7 +60,6 @@ export default function ProductsHome() {
                     </div>
                 </div>
             </section>
-        </main>
-        </>
+        </Layout>
     );
 }
