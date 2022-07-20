@@ -38,7 +38,7 @@ export default function ProductsHome() {
         <Layout>
             <section className="section bg-white">
                 <div className="container">
-                    <h1>Products Page Customer View</h1>
+                    <h1>Product Catalogue</h1>
                     <div className="grid product-grid">
                         {products?.map((product) => (
                             <article key={product.id}>
