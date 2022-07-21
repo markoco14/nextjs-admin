@@ -1,22 +1,24 @@
 import { useState, useEffect } from "react"
 import { createServer } from "miragejs";
-import products from "../../../fixtures/products";
+import { Button } from "antd";
+// import products from "../../../fixtures/products";
 import Layout from "../../../components/adminLayout";
 
-createServer({
-    fixtures: {
-        products,
-    },
+// createServer({
+//     fixtures: {
+//         products,
+//     },
 
-    routes() {
-        this.get('/api/products', () => {
-            return products;
-        })
+//     routes() {
+//         this.get('/api/products', () => {
+//             return products;
+//         })
 
-        this.passthrough();
+//         this.passthrough();
 
-    }
-})
+//     }
+// })
+
 
 export default function ManageProducts() {
     const [products, setProducts] = useState([]);
@@ -24,7 +26,8 @@ export default function ManageProducts() {
     useEffect(() => {
         fetch("/api/products")
         .then((res) =>
-            res.json())
+            res.json()
+            )
         .then((json) => {
             setProducts(json)
         });
@@ -34,7 +37,11 @@ export default function ManageProducts() {
         <Layout>
             <section className="section bg-white">
                 <div className="container">
-                    <h1>Manage Products</h1>
+                    <div className="flex-between">
+                        <h1>Manage Products</h1>
+                        {/* <Button type="primary" onClick={()=> {console.log("You clicked the button")}}>Add Product</Button> */}
+                        <button onClick={() => {console.log("You clicked the add button")}}>Add Product</button>
+                    </div>
                     <table>
                         <thead>
                             <tr>
@@ -54,7 +61,7 @@ export default function ManageProducts() {
                                 <td>{product.price}</td>
                                 <td>{product.category}</td>
                                 <td>{product.quantity}</td>
-                                <td><div><button>Delete</button></div></td>
+                                {/* <td><a href={`/api/products/${product.id}`}>Delete</a></td> */}
                             </tr>
                         ))}
                         </tbody>

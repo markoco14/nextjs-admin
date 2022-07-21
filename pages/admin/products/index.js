@@ -6,21 +6,21 @@ import defaultProductPic from '../../../public/images/default-product-image.jpg'
 import Image from "next/image";
 import Layout from "../../../components/adminLayout";
 
-createServer({
-    fixtures: {
-        products,
-    },
+// createServer({
+//     fixtures: {
+//         products,
+//     },
 
-    routes() {
-        this.get('/api/products', () => {
-            return products;
-        })
+//     routes() {
+//         this.get('/api/products', () => {
+//             return products;
+//         })
 
-        this.passthrough();
+//         this.passthrough();
 
-        // server.shutdown();
-    }
-})
+//         // server.shutdown();
+//     }
+// })
 
 export default function ProductsHome() {
     const [products, setProducts] = useState([]);
@@ -30,6 +30,7 @@ export default function ProductsHome() {
         .then((res) =>
             res.json())
         .then((json) => {
+            console.log(json);
             setProducts(json)
         });
     }, [])
@@ -44,12 +45,6 @@ export default function ProductsHome() {
                             <article key={product.id}>
                                 <p>{product.title}</p>
                                 <p>{product.description}</p>
-                                {/* <Image 
-                                    src={product.image}
-                                    alt="An image of clothing"
-                                    layout="fill"
-                                    className="product-card-image"
-                                /> */}
                                 <img 
                                     src={product.image? product.image : defaultProductPic.src}
                                     alt="An image of clothing"
