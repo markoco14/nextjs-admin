@@ -23,6 +23,13 @@ import Layout from "../../../components/adminLayout";
 export default function ManageProducts() {
     const [products, setProducts] = useState([]);
 
+    function deleteProduct(id) {
+        fetch(`/api/products/${id}`, { method: "DELETE"});
+        setProducts((products) => 
+            products.filter((product) => product.id !== id)
+        );
+    }
+
     useEffect(() => {
         fetch("/api/products")
         .then((res) =>
@@ -62,6 +69,7 @@ export default function ManageProducts() {
                                 <td>{product.category}</td>
                                 <td>{product.quantity}</td>
                                 {/* <td><a href={`/api/products/${product.id}`}>Delete</a></td> */}
+                                <td><button onClick={() => {deleteProduct(product.id)}}>Delete</button></td>
                             </tr>
                         ))}
                         </tbody>
