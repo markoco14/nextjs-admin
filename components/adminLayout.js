@@ -13,7 +13,7 @@ export default function Layout({ children }) {
             </header>
             <main>
                 <div className="grid admin-grid">
-                    <nav>
+                    <nav style={{ paddingTop: "3rem" }}>
                         <ul role="list" className="flex-column admin-navigation primary-admin-navigation">
                             <li className="nav-list-item">
                                 <Link href={`/admin`}>
@@ -24,7 +24,7 @@ export default function Layout({ children }) {
                             <ul role="product-page-list" className="flex-column admin-navigation secondary-admin-navigation">
                                 <li className="nav-list-item">
                                     <Link href={`/admin/products`}>
-                                        <a>View</a>
+                                        <a>Catalogue</a>
                                     </Link>
                                 </li>
                                 <li className="nav-list-item">
