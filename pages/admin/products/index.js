@@ -6,21 +6,6 @@ import defaultProductPic from '../../../public/images/default-product-image.jpg'
 import Image from "next/image";
 import Layout from "../../../components/adminLayout";
 
-// createServer({
-//     fixtures: {
-//         products,
-//     },
-
-//     routes() {
-//         this.get('/api/products', () => {
-//             return products;
-//         })
-
-//         this.passthrough();
-
-//         // server.shutdown();
-//     }
-// })
 
 export default function ProductsHome() {
     const [products, setProducts] = useState([]);
@@ -30,8 +15,7 @@ export default function ProductsHome() {
         .then((res) =>
             res.json())
         .then((json) => {
-            console.log(json);
-            setProducts(json)
+            setProducts(json.products)
         });
     }, [])
 

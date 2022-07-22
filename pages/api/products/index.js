@@ -4,7 +4,7 @@ export default function handler(req, res) {
     res.status(200).json([
         {
             "id": 1,
-            "title": "Laptop Backpack",
+            "name": "Laptop Backpack",
             "price": 109.95,
             "description": "Your perfect pack for everyday use and walks in the forest.",
             "category": "men's clothing",
@@ -13,7 +13,7 @@ export default function handler(req, res) {
             },
             {
             "id": 2,
-            "title": "Mens Slim Fit T-Shirts ",
+            "name": "Mens Slim Fit T-Shirts ",
             "price": 22.3,
             "description": "Slim-fitting style with contrast raglan long sleeve.",
             "category": "men's clothing",
@@ -22,7 +22,7 @@ export default function handler(req, res) {
             },
             {
             "id": 3,
-            "title": "Mens Cotton Jacket",
+            "name": "Mens Cotton Jacket",
             "price": 55.99,
             "description": "Great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions.",
             "category": "men's clothing",
@@ -31,15 +31,15 @@ export default function handler(req, res) {
             },
             {
             "id": 4,
-            "title": "Mens Casual Long Sleeve",
+            "name": "Mens Casual Long Sleeve",
             "price": 15.99,
             "description": "The color could be slightly different between on the screen and in practice.",
             "image": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
             "quantity": 1,
             },
             {
-            "id": 15,
-            "title": "Women's Winter Coats",
+            "id": 5,
+            "name": "Women's Winter Coats",
             "price": 56.99,
             "description": "It is suitable for different season and help you adapt to different climates",
             "category": "women's clothing",
@@ -47,8 +47,8 @@ export default function handler(req, res) {
             "quantity": 1,
             },
             {
-            "id": 16,
-            "title": "Women's Removable Leather Jacket",
+            "id": 6,
+            "name": "Women's Removable Leather Jacket",
             "price": 29.95,
             "description": "Faux leather material for style and comfort.",
             "category": "women's clothing",
@@ -56,8 +56,8 @@ export default function handler(req, res) {
             "quantity": 1,
             },
             {
-            "id": 17,
-            "title": "Women's Windbreaker",
+            "id": 7,
+            "name": "Women's Windbreaker",
             "price": 39.99,
             "description": "Lightweight perfect for trip or casual wear.",
             "category": "women's clothing",
@@ -65,8 +65,8 @@ export default function handler(req, res) {
             "quantity": 1,
             },
             {
-            "id": 18,
-            "title": "Women's Short Sleeve V ",
+            "id": 8,
+            "name": "Women's Short Sleeve V ",
             "price": 9.85,
             "description": "Lightweight fabric with great stretch for comfort.",
             "category": "women's clothing",
@@ -74,8 +74,8 @@ export default function handler(req, res) {
             "quantity": 1,
             },
             {
-            "id": 19,
-            "title": "Opna Women's Short Sleeve Moisture",
+            "id": 9,
+            "name": "Opna Women's Short Sleeve Moisture",
             "price": 7.95,
             "description": "Machine Wash & Pre Shrunk for a Great Fit.",
             "category": "women's clothing",
@@ -83,8 +83,8 @@ export default function handler(req, res) {
             "quantity": 1,
             },
             {
-            "id": 20,
-            "title": "DANVOUY Womens Casual Cotton Combo",
+            "id": 10,
+            "name": "DANVOUY Womens Casual Cotton Combo",
             "price": 12.99,
             "description": "The fabric is soft and has some stretch.",
             "category": "women's clothing",
