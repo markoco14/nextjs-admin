@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { createServer } from "miragejs";
 import Link from "next/link";
-import products from "../../../fixtures/products";
+// import products from "../../../fixtures/products";
 import defaultProductPic from '../../../public/images/default-product-image.jpg'
 import Image from "next/image";
 import Layout from "../../../components/adminLayout";
