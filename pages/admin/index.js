@@ -1,5 +1,7 @@
 import Link from "next/link";
 import Layout from "../../components/adminLayout";
+import { Card } from 'antd';
+
 // import { makeServer } from "../../mirage"
 
 // if (
@@ -17,11 +19,12 @@ import Layout from "../../components/adminLayout";
 export default function AdminHome () {
     return (
         <Layout>
-            <section className="section bg-white">
-                <div className="container">
-                    <h1>Welcome to the Admin section</h1>
-                </div>
-            </section>
+            <Card>
+                <h1>Hi New User, welcome to your dashboard.</h1>
+                <p>You can manage all your products from one place.</p>
+                <p>Add, Edit, and Delete products as your catalogue changes.</p>
+                <p>Review your stats to see which products are performing well &#8212; or poorly.</p>
+            </Card>
         </Layout>
     );
 }

@@ -48,6 +48,7 @@ export function makeServer({ environment = "test"} = {}) {
                     "name": "Mens Casual Long Sleeve",
                     "price": 15.99,
                     "description": "The color could be slightly different between on the screen and in practice.",
+                    "category": "men's clothing",
                     "image": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
                     "quantity": 1,
                 }

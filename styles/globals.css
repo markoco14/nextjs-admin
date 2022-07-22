@@ -45,6 +45,10 @@ a {
   display: none;
 }
 
+.show-700 {
+  display: none;
+}
+
 @media screen and (max-width: 800px) {
   .hide-800 {
     display: none; 
@@ -63,10 +67,6 @@ a {
 
 /* .bg-white {
   background-color: white;
-}
-
-.grid {
-  display: grid;
 }
 
 .flex {
@@ -161,12 +161,20 @@ a {
 
 /* Product Page */
 
+.grid {
+  display: grid;
+}
+
 .product-grid {
+  position: relative;
   grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
   gap: 1rem 2rem;
 }
 
 .product-card-image {
   max-width: 100%;
+  object-fit: cover;
+  max-height:200px;
+  margin: auto;
 }
 

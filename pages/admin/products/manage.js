@@ -1,17 +1,62 @@
 import { useState, useEffect } from "react"
 import { createServer } from "miragejs";
-import { Button, Modal, Form, Input, Radio } from "antd";
+import { Button, Modal, Form, Input, Radio, Card, Table } from "antd";
 // import products from "../../../fixtures/products";
 import Layout from "../../../components/adminLayout";
 
 export default function ManageProducts() {
     const [products, setProducts] = useState([]);
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [newProductName, setNewProductName] = useState('');
-    const [newProductPrice, setNewProductPrice] = useState('');
-    const [newProductDescription, setNewProductDescription] = useState('');
-    const [newProductCategory, setNewProductCategory] = useState('');
-    const [newProductQuantity, setNewProductQuantity] = useState('');
+    const [newProductName, setNewProductName] = useState(undefined);
+    const [newProductPrice, setNewProductPrice] = useState(undefined);
+    const [newProductDescription, setNewProductDescription] = useState(undefined);
+    const [newProductCategory, setNewProductCategory] = useState(undefined);
+    const [newProductQuantity, setNewProductQuantity] = useState(undefined);
+
+    const columns = [
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
+        },
+        {
+            title: 'Description',
+            dataIndex: 'description',
+            key: 'description',
+            responsive: ['lg'],
+        },
+        {
+            title: 'Price',
+            dataIndex: 'price',
+            key: 'price',
+            responsive: ['sm'],
+        },
+        {
+            title: 'Category',
+            dataIndex: 'category',
+            key: 'category',
+            responsive: ['md']
+        },
+        {
+            title: 'Quantity',
+            dataIndex: 'quantity',
+            key: 'quantity',
+            responsive: ['xxs'],
+        },
+        {
+            title: 'Actions',
+            dataIndex: 'id',
+            key: 'actions',
+            render: (_, product) => (
+                <Button
+                    onClick={() => {deleteProduct(product.id)}}
+                    type='danger'
+                >
+                    Delete
+                </Button>
+            ),
+        },
+    ];
 
     function openAddModal() {
         setIsModalVisible(true);
@@ -32,7 +77,6 @@ export default function ManageProducts() {
 
     function onSetProductDescription(e) {
         setNewProductDescription(e.target.value);
-        
     }
 
     function onSetProductCategory(e) {
@@ -40,13 +84,10 @@ export default function ManageProducts() {
     }
 
     function onSetProductQuantity(e) {
-        setNewProductQuantity(e.target.value);
-        
+        setNewProductQuantity(e.target.value); 
     }
 
     function createProduct(e) {
-        
-
         fetch('/api/products', {
             method: "POST",
             body: JSON.stringify({
@@ -64,11 +105,11 @@ export default function ManageProducts() {
 
         console.log('Function finished, check network response')
         setIsModalVisible(false);
-        // setNewProductName('');
-        // setNewProductPrice('');
-        // setNewProductDescription('');
-        // setNewProductCategory('');
-        // setNewProductQuantity('');
+        setNewProductName(undefined);
+        setNewProductPrice(undefined);
+        setNewProductDescription(undefined);
+        setNewProductCategory(undefined);
+        setNewProductQuantity(undefined);
     }
     
     function deleteProduct(id) {
@@ -90,45 +131,19 @@ export default function ManageProducts() {
 
     return (
         <Layout>
-            <section className="section bg-white">
-                <div className="container">
-                    <div className="flex-between">
-                        <h1>Manage Products</h1>
-                        <Button type="primary" onClick={openAddModal}>Add Product</Button>
-                        {/* <button onClick={openAddModal}>Add Product</button> */}
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Product Name</th>
-                                <th>Product Description</th>
-                                <th>Product Price</th>
-                                <th>Product Category</th>
-                                <th>Product Quantity</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {products?.map((product) => (
-                            <tr key={product.id}>
-                                <td>{product.name}</td>
-                                <td>{product.description}</td>
-                                <td>{product.price}</td>
-                                <td>{product.category}</td>
-                                <td>{product.quantity}</td>
-                                <td>
-                                    <button 
-                                        onClick={() => {deleteProduct(product.id)}}
-                                    >
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
+            <Card>
+                <div style={{ display: 'flex', justifyContent: 'space-between'}}>
+                    <h1>Manage Products</h1>
+                    <Button type="primary" onClick={openAddModal}>Add Product</Button>
+                    {/* <button onClick={openAddModal}>Add Product</button> */}
                 </div>
-            </section>
+                <Table 
+                    columns={columns} 
+                    dataSource={products}
+                    className="hide-700" 
+                    // pagination={false}
+                ></Table>
+            </Card>
             <Modal
                 title="Add New Product"
                 visible={isModalVisible}
