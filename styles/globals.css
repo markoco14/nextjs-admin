@@ -19,16 +19,13 @@ body {
   min-height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    background-color: rgb(15,15,15);
+    /* color: white; */
+    background-color: rgb(187, 186, 186);
 }
 
 ul {
   padding: 0;
   margin: 0;
-}
-
-ul > * {
-  list-style: none;
 }
 
 a {
@@ -44,12 +41,32 @@ a {
 
 /* Utility Styles */
 
-.bg-white {
-  background-color: white;
+.show-800 {
+  display: none;
 }
 
-.grid {
+.show-700 {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+  .hide-800 {
+    display: none; 
+  }
+
+  .show-800 {
+    display: block;
+  }
+}
+
+.grid-center {
   display: grid;
+  place-content: center;
+  margin-top: -5rem;
+}
+
+/* .bg-white {
+  background-color: white;
 }
 
 .flex {
@@ -77,11 +94,11 @@ a {
   width: min(100%, 1000px);
   padding: 0 1em;
   margin: auto;
-}
+} */
 
 /* Header Navbar */
 
-.header-container {
+/* .header-container {
   padding: 0 1em;
 }
 
@@ -101,11 +118,11 @@ a {
 
 .navigation-list {
   gap:1rem;
-}
+} */
 
 /* Side Navbar */
 
-.admin-grid {
+/* .admin-grid {
   grid-template-columns: 175px 1fr;
   min-height:100vh;
 }
@@ -132,24 +149,32 @@ a {
 
 .nav-list-item:hover {
   border-bottom: 2px solid white;
-}
+} */
 
 
 /* Landing Page */
 
-.footer {
+/* .footer {
   color: white;
   padding: 3rem 0;
-}
+} */
 
 /* Product Page */
 
+.grid {
+  display: grid;
+}
+
 .product-grid {
+  position: relative;
   grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
   gap: 1rem 2rem;
 }
 
 .product-card-image {
   max-width: 100%;
+  object-fit: cover;
+  max-height:200px;
+  margin: auto;
 }
 

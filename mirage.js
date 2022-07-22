@@ -42,6 +42,39 @@ export function makeServer({ environment = "test"} = {}) {
                     "quantity": 1,
                 }
             )
+            server.create("product", 
+                {
+                    "id": 4,
+                    "name": "Mens Casual Long Sleeve",
+                    "price": 15.99,
+                    "description": "The color could be slightly different between on the screen and in practice.",
+                    "category": "men's clothing",
+                    "image": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
+                    "quantity": 1,
+                }
+            )
+            server.create("product", 
+                {
+                    "id": 5,
+                    "name": "Women's Winter Coats",
+                    "price": 56.99,
+                    "description": "It is suitable for different season and help you adapt to different climates",
+                    "category": "women's clothing",
+                    "image": "https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg",
+                    "quantity": 1,
+                }
+            )
+            server.create("product", 
+                {
+                    "id": 6,
+                    "name": "Women's Removable Leather Jacket",
+                    "price": 29.95,
+                    "description": "Faux leather material for style and comfort.",
+                    "category": "women's clothing",
+                    "image": "https://fakestoreapi.com/img/81XH0e8fefL._AC_UY879_.jpg",
+                    "quantity": 1,
+                }
+            )
         },
 
         routes() {
@@ -62,6 +95,8 @@ export function makeServer({ environment = "test"} = {}) {
 
                 return schema.products.find(id).destroy()
             })
+
+            this.passthrough();
         },
     })
 
