@@ -27,7 +27,7 @@ export default function ProductsHome() {
                     <div className="grid product-grid">
                         {products?.map((product) => (
                             <article key={product.id}>
-                                <p>{product.title}</p>
+                                <p>{product.name}</p>
                                 <p>{product.description}</p>
                                 <img 
                                     src={product.image? product.image : defaultProductPic.src}
