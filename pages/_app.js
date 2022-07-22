@@ -1,7 +1,7 @@
 import 'antd/dist/antd.css';
 import '../styles/globals.css';
 
-import { makeServer } from "../../mirage"
+import { makeServer } from "../mirage"
 
 if (process.env.NODE_ENV === "development" &&typeof makeServer === "function") {
   makeServer({ environment: "development"})
