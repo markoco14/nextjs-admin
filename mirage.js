@@ -67,7 +67,7 @@ export function makeServer({ environment = "test"} = {}) {
             server.create("product", 
                 {
                     "id": 6,
-                    "name": "Women's Removable Leather Jacket",
+                    "name": "Women's Leather Jacket",
                     "price": 29.95,
                     "description": "Faux leather material for style and comfort.",
                     "category": "women's clothing",
@@ -78,8 +78,6 @@ export function makeServer({ environment = "test"} = {}) {
         },
 
         routes() {
-            // this.namespace = "/api"
-
             this.get("/_next/static/development/_devMiddlewareManifest.json", () => {
                 return [];
             })
@@ -103,8 +101,6 @@ export function makeServer({ environment = "test"} = {}) {
 
                 return schema.products.find(id).destroy()
             })
-
-            // this.passthrough();
         },
     })
 

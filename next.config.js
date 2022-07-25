@@ -3,13 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['https://fakestoreapi.com'],
+    domains: ['fakestoreapi.com'],
   }
 }
 
 module.exports = nextConfig
-// module.exports = {
-//   images: {
-//     domains: ['fakestoreapi.com'],
-//   }
-// }
