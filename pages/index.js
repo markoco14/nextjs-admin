@@ -24,7 +24,9 @@ export default function Home() {
           className='grid-center'
         >
           <h1>Welcome, New User, this is the login page.</h1>
-          <p>Please click Log In to go to your dashboard.</p>
+          <p>Please click <span><Link href={`/admin`}>
+              <a style={{ textDecoration: 'underline'}}>Log In</a>
+            </Link></span> to go to your dashboard.</p>
           <p>Authentication coming soon.</p>
         </Card>
       </section>
