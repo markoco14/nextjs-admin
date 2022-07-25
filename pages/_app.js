@@ -10,7 +10,7 @@ else if (
     process.env.NODE_ENV === "production" ||
     process.env.REACT_APP_DEMO
   ) {
-    makeServer(); // For a live demo when deploying to Vercel
+    makeServer({ environment: "production"}); // For a live demo when deploying to Vercel
   }
 
 function MyApp({ Component, pageProps }) {
