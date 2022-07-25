@@ -78,25 +78,33 @@ export function makeServer({ environment = "test"} = {}) {
         },
 
         routes() {
-            this.namespace = "/api"
+            // this.namespace = "/api"
 
-            this.get("/products", (schema) => {
+            this.get("/_next/static/development/_devMiddlewareManifest.json", () => {
+                return [];
+            })
+
+            this.get("/_next/static/development/_devPagesManifest.json", () => {
+                return {"pages":["/","/../mirage","/../next.config","/_app","/admin","/admin/products","/admin/products/manage","/admin/stats","/api/hello","/api/products","/api/products/[id]"]};
+            })
+
+            this.get("/api/products", (schema) => {
                 return schema.products.all();
             })
 
-            this.post("/products", (schema, request) => {
+            this.post("/api/products", (schema, request) => {
                 let attrs = JSON.parse(request.requestBody);
 
                 return schema.products.create(attrs);
             })
 
-            this.delete(`/products/:id`, (schema, request) => {
+            this.delete(`/api/products/:id`, (schema, request) => {
                 let id = request.params.id
 
                 return schema.products.find(id).destroy()
             })
 
-            this.passthrough();
+            // this.passthrough();
         },
     })
 
