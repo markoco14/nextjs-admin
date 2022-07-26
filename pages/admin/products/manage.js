@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
-import { createServer } from "miragejs";
-import { Button, Modal, Form, Input, Radio, Card, Table } from "antd";
-// import products from "../../../fixtures/products";
+import { Button, Modal, Form, Input, Radio, Card, Table, Popconfirm } from "antd";
+import { DeleteOutlined, EditOutlined, WarningOutlined } from '@ant-design/icons';
 import Layout from "../../../components/adminLayout";
 
 export default function ManageProducts() {
@@ -48,15 +47,43 @@ export default function ManageProducts() {
             dataIndex: 'id',
             key: 'actions',
             render: (_, product) => (
-                <Button
-                    onClick={() => {deleteProduct(product.id)}}
-                    type='danger'
-                >
-                    Delete
-                </Button>
+                <div className="table-two-actions">
+                    <Button>
+                        <EditOutlined />
+                    </Button>
+                    <Popconfirm
+                        title={() => 
+                            <p className="delete-pop-title">
+                                Are you sure you want to delete this product?
+                            </p>
+                        }
+                        placement='topRight'
+                        onConfirm={() => deleteProduct(product.id)}
+                        okText="Yes"
+                        cancelText="No"
+                        okButtonProps={{type: 'danger'}}
+                        icon={<WarningOutlined 
+                            style={{
+                                color: 'red', 
+                                fontSize: '2rem', 
+                            }} 
+                        />}
+                    >
+                        <Button type="danger">
+                            <DeleteOutlined />
+                        </Button>
+                    </Popconfirm>
+                </div>
             ),
         },
     ];
+
+    function deleteProduct(id) {
+        fetch(`/api/products/${id}`, { method: "DELETE"});
+        setProducts((products) => 
+            products.filter((product) => product.id !== id)
+        );
+    }
 
     function openAddModal() {
         setIsModalVisible(true);
@@ -111,13 +138,6 @@ export default function ManageProducts() {
         setNewProductCategory(undefined);
         setNewProductQuantity(undefined);
     }
-    
-    function deleteProduct(id) {
-        fetch(`/api/products/${id}`, { method: "DELETE"});
-        setProducts((products) => 
-            products.filter((product) => product.id !== id)
-        );
-    }
 
     useEffect(() => {
         fetch("/api/products")
@@ -131,7 +151,7 @@ export default function ManageProducts() {
 
     return (
         <Layout>
-            <Card>
+            <Card style={{ width: 'min(1500px, 100%)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between'}}>
                     <h1>Manage Products</h1>
                     <Button type="primary" onClick={openAddModal}>Add Product</Button>
@@ -151,10 +171,12 @@ export default function ManageProducts() {
                 onCancel={handleCancel}
                 destroyOnClose={true}
                 okButtonProps={{ style: { display: 'none' } }}
+                cancelButtonProps={{ style: { display: 'none'} }}
             >
-                <p>Add your product details in the form below. Edit functionality coming soon.</p>
+                <p>Add your product details in the form below.</p>
                 <Form
                     onFinish={createProduct}
+                    layout="vertical"
                 >
                     <Form.Item
                         label="Name"
@@ -187,14 +209,15 @@ export default function ManageProducts() {
                         label="Category"
                         name="category"
                         rules={[{ required: true, message: 'Please choose a category for the product.' }]}
-                    >                        
+                    >           
                         <Radio.Group 
-                            onChange={onSetProductCategory} 
+                            onChange={onSetProductCategory}
+                            className="form-radio-group"
                         >
-                            <Radio value={`Men's`}>Men&apos;s</Radio>
-                            <Radio value={`Women's`}>Women&apos;s</Radio>
-                            <Radio value={`Children's`}>Children&apos;s</Radio>
-                            <Radio value={`Pet's`}>Pet&apos;s</Radio>
+                            <Radio.Button value={`Men's`}>Men&apos;s</Radio.Button>
+                            <Radio.Button value={`Women's`}>Women&apos;s</Radio.Button>
+                            <Radio.Button value={`Children's`}>Children&apos;s</Radio.Button>
+                            <Radio.Button value={`Pet's`}>Pet&apos;s</Radio.Button>
                         </Radio.Group>
                     </Form.Item>
                     <Form.Item
@@ -206,10 +229,15 @@ export default function ManageProducts() {
                             onChange={onSetProductQuantity} 
                         />
                     </Form.Item>
-                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button type="primary" htmlType="submit">
-                            Submit
-                        </Button>
+                    <Form.Item>
+                        <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'right'}}>
+                            <Button onClick={handleCancel}>
+                                Cancel
+                            </Button>
+                            <Button type="primary" htmlType="submit">
+                                Submit
+                            </Button>
+                        </div>
                     </Form.Item>
                 </Form>
             </Modal>

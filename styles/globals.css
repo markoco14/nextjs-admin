@@ -2,7 +2,9 @@
    - - - - - - - - -
    Global Styles
    Utility Styles
-   Product Page
+   Product Pages
+   Catalogue Page
+   Manage Page
    - - - - - - - - -
 */
 
@@ -60,7 +62,9 @@ a {
   margin-top: -5rem;
 }
 
-/* Product Page */
+/* Product Pages */
+
+/* Catalogue Page */
 
 .grid {
   display: grid;
@@ -91,4 +95,21 @@ a {
   .product-grid {
     grid-template-columns: repeat(4, minmax(min(200px, 100%), 300px));
   }
+}
+
+/* Manage Page */
+
+.table-two-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.form-radio-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.delete-pop-title {
+  margin: 0; 
+  padding-left: 1.5rem;
 }
