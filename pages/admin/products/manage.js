@@ -5,12 +5,21 @@ import Layout from "../../../components/adminLayout";
 
 export default function ManageProducts() {
     const [products, setProducts] = useState([]);
-    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
     const [newProductName, setNewProductName] = useState(undefined);
     const [newProductPrice, setNewProductPrice] = useState(undefined);
     const [newProductDescription, setNewProductDescription] = useState(undefined);
     const [newProductCategory, setNewProductCategory] = useState(undefined);
     const [newProductQuantity, setNewProductQuantity] = useState(undefined);
+
+    const [isEditModalVisible, setIsEditModalVisible] = useState(undefined);
+    const [currentProductId, setCurrentProductId] = useState(undefined);
+    const [currentProductName, setCurrentProductName] = useState(undefined);
+    const [currentProductPrice, setCurrentProductPrice] = useState(undefined);
+    const [currentProductDescription, setCurrentProductDescription] = useState(undefined);
+    const [currentProductCategory, setCurrentProductCategory] = useState(undefined);
+    const [currentProductQuantity, setCurrentProductQuantity] = useState(undefined);
 
     const columns = [
         {
@@ -48,7 +57,9 @@ export default function ManageProducts() {
             key: 'actions',
             render: (_, product) => (
                 <div className="table-two-actions">
-                    <Button>
+                    <Button onClick={() => {
+                        openEditModal(product);
+                        }}>
                         <EditOutlined />
                     </Button>
                     <Popconfirm
@@ -78,20 +89,17 @@ export default function ManageProducts() {
         },
     ];
 
-    function deleteProduct(id) {
-        fetch(`/api/products/${id}`, { method: "DELETE"});
-        setProducts((products) => 
-            products.filter((product) => product.id !== id)
-        );
-    }
-
     function openAddModal() {
-        setIsModalVisible(true);
+        setIsCreateModalVisible(true);
     }
 
-    function handleCancel() {
-        console.log('You clicked cancel');
-        setIsModalVisible(false);
+    function handleCancelAddProduct() {
+        setNewProductName(undefined);
+        setNewProductPrice(undefined);
+        setNewProductDescription(undefined);
+        setNewProductCategory(undefined);
+        setNewProductQuantity(undefined)
+        setIsCreateModalVisible(false);
     }
 
     function onSetProductName(e) {
@@ -130,14 +138,80 @@ export default function ManageProducts() {
             setProducts((products) => [...products, json.product]);
         })
 
-        console.log('Function finished, check network response')
-        setIsModalVisible(false);
+        setIsCreateModalVisible(false);
         setNewProductName(undefined);
         setNewProductPrice(undefined);
         setNewProductDescription(undefined);
         setNewProductCategory(undefined);
         setNewProductQuantity(undefined);
     }
+
+    function openEditModal(product) {
+        setCurrentProductId(product.id);
+        setCurrentProductName(product.name)
+        setCurrentProductPrice(product.price)
+        setCurrentProductDescription(product.description)
+        setCurrentProductCategory(product.category)
+        setCurrentProductQuantity(product.quantity)
+        setIsEditModalVisible(true);
+    }
+
+    function handleCancelEditProduct() {
+        setNewProductName(undefined);
+        setNewProductPrice(undefined);
+        setNewProductDescription(undefined);
+        setNewProductCategory(undefined);
+        setNewProductQuantity(undefined)
+        setIsEditModalVisible(false);
+    }
+
+    function editProduct(id) {
+        if (!newProductName 
+            && !newProductPrice 
+            && ! newProductDescription 
+            && ! newProductCategory 
+            && !newProductQuantity 
+        ) {
+            setIsEditModalVisible(false);
+            return;
+        }
+        
+        const body = {
+            name: newProductName? newProductName : currentProductName,
+            price: newProductPrice? newProductPrice : currentProductPrice,
+            description: newProductDescription? newProductDescription : currentProductDescription,
+            category: newProductCategory? newProductCategory : currentProductCategory,
+            quantity: newProductQuantity? newProductQuantity : currentProductQuantity,
+        }
+        
+        fetch(`/api/products/${id}`, { 
+            "method": "PATCH",
+            "body": body,
+        });
+        
+        fetch("/api/products")
+        .then((res) =>
+        res.json()
+        )
+        .then((json) => {
+            setProducts(json.products)
+        });
+
+        setNewProductName(undefined);
+        setNewProductPrice(undefined);
+        setNewProductDescription(undefined);
+        setNewProductCategory(undefined);
+        setNewProductQuantity(undefined)
+        setIsEditModalVisible(false);
+    }
+
+    function deleteProduct(id) {
+        fetch(`/api/products/${id}`, { method: "DELETE"});
+        setProducts((products) => 
+            products.filter((product) => product.id !== id)
+        );
+    }
+
 
     useEffect(() => {
         fetch("/api/products")
@@ -155,20 +229,85 @@ export default function ManageProducts() {
                 <div style={{ display: 'flex', justifyContent: 'space-between'}}>
                     <h1>Manage Products</h1>
                     <Button type="primary" onClick={openAddModal}>Add Product</Button>
-                    {/* <button onClick={openAddModal}>Add Product</button> */}
                 </div>
                 <Table 
                     columns={columns} 
                     dataSource={products}
                     className="hide-700" 
-                    // pagination={false}
                 ></Table>
             </Card>
             <Modal
+                title="Edit Product"
+                visible={isEditModalVisible}
+                destroyOnClose={true}
+                okButtonProps={{ style: { display: 'none' } }}
+                cancelButtonProps={{ style: { display: 'none'} }}
+            >
+                <p>Edit your product details. You don&apos;t need to edit all the details, only what you want to change.</p>
+                <Form
+                    onFinish={() => editProduct(currentProductId) }
+                    layout="vertical"
+                >
+                     <Form.Item
+                        label="Name"
+                        name="name"
+                    >
+                        <Input 
+                            onChange={onSetProductName} 
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        label="Price"
+                        name="price"
+                    >
+                        <Input 
+                            onChange={onSetProductPrice} 
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        label="Description"
+                        name="description"
+                    >
+                        <Input 
+                            onChange={onSetProductDescription} 
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        label="Category"
+                        name="category"
+                    >           
+                        <Radio.Group 
+                            onChange={onSetProductCategory}
+                            className="form-radio-group"
+                        >
+                            <Radio.Button value={`Men's`}>Men&apos;s</Radio.Button>
+                            <Radio.Button value={`Women's`}>Women&apos;s</Radio.Button>
+                            <Radio.Button value={`Children's`}>Children&apos;s</Radio.Button>
+                        </Radio.Group>
+                    </Form.Item>
+                    <Form.Item
+                        label="Quantity"
+                        name="quantity"
+                    >
+                        <Input 
+                            onChange={onSetProductQuantity} 
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'right'}}>
+                            <Button onClick={handleCancelEditProduct}>
+                                Cancel
+                            </Button>
+                            <Button type="primary" htmlType="submit">
+                                Submit
+                            </Button>
+                        </div>
+                    </Form.Item>
+                </Form>
+            </Modal>
+            <Modal
                 title="Add New Product"
-                visible={isModalVisible}
-                // onOk={createProduct}
-                onCancel={handleCancel}
+                visible={isCreateModalVisible}
                 destroyOnClose={true}
                 okButtonProps={{ style: { display: 'none' } }}
                 cancelButtonProps={{ style: { display: 'none'} }}
@@ -217,7 +356,6 @@ export default function ManageProducts() {
                             <Radio.Button value={`Men's`}>Men&apos;s</Radio.Button>
                             <Radio.Button value={`Women's`}>Women&apos;s</Radio.Button>
                             <Radio.Button value={`Children's`}>Children&apos;s</Radio.Button>
-                            <Radio.Button value={`Pet's`}>Pet&apos;s</Radio.Button>
                         </Radio.Group>
                     </Form.Item>
                     <Form.Item
@@ -231,7 +369,7 @@ export default function ManageProducts() {
                     </Form.Item>
                     <Form.Item>
                         <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'right'}}>
-                            <Button onClick={handleCancel}>
+                            <Button onClick={handleCancelAddProduct}>
                                 Cancel
                             </Button>
                             <Button type="primary" htmlType="submit">
