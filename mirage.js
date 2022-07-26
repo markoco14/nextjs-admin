@@ -96,6 +96,13 @@ export function makeServer({ environment = "test"} = {}) {
                 return schema.products.create(attrs);
             })
 
+            this.patch("/api/products/:id", (schema, request) => {
+                let id = request.params.id;
+                let attrs = request.requestBody;
+
+                return schema.products.find(id).update(attrs);
+            })
+
             this.delete(`/api/products/:id`, (schema, request) => {
                 let id = request.params.id
 
