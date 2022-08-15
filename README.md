@@ -9,7 +9,9 @@ The purpose of the project is to show how to mock API requests with Mirage.js, a
 ## Run the project
 
 ```
-git clone https://github.com/markoco14/nextjs-admin.git
+git clone https://github.com/markoco14/nextjs-admin.git product_admin
+
+cd product_admin
 
 npm install
 
